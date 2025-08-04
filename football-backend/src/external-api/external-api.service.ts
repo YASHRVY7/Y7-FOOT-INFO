@@ -14,26 +14,11 @@ export class ExternalApiService {
         }
     }
 
-    // Top 8 European league codes
-    private readonly topEuropeanLeagues = [
-        'PL',    // Premier League
-        'PD',    // La Liga
-        'BL1',   // Bundesliga
-        'SA',    // Serie A
-        'FL1',   // Ligue 1
-        'PPL',   // Primeira Liga
-        'DED',   // Eredivisie
-        'B1'     // Jupiler Pro League
-    ];
-
     // http://localhost:3000/leagues
     async getLeagues(){
         const url = `${this.baseUrl}/competitions`;
         const response = await axios.get(url, { headers: this.getHeaders() });
-        
-        return response.data.competitions.filter((league: any) => 
-            this.topEuropeanLeagues.includes(league.code)
-        );
+        return response.data.competitions.filter((league: any) => league.type === 'LEAGUE');
     }
 
     // http://localhost:3000/teams/PL
