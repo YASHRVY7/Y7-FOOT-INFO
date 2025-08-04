@@ -7,7 +7,15 @@ async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
   // Enable CORS for Angular frontend
-  app.enableCors({ origin: 'http://localhost:4200' });
+  app.enableCors({
+    origin: [
+      'http://localhost:4200',
+      'https://whimsical-kangaroo-b5d5d3.netlify.app',
+      'https://689062671d9c620496a9a70e--whimsical-kangaroo-b5d5d3.netlify.app'
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   app.useGlobalFilters(new AllExceptionFilter());
   
   const port = parseInt(process.env.PORT || '') || 3000;
