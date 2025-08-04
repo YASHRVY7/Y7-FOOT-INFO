@@ -8,22 +8,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Enable CORS with specific settings
   app.enableCors({
-    origin: [
-      'https://whimsical-kangaroo-b5d5d3.netlify.app',
-      'http://localhost:4200',
-      'https://*.netlify.app'
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'X-Requested-With',
-      'Accept',
-      'X-Auth-Token'
-    ],
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    origin: 'https://whimsical-kangaroo-b5d5d3.netlify.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    credentials: true
   });
   app.useGlobalFilters(new AllExceptionFilter());
   
