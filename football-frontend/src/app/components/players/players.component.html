@@ -1,0 +1,72 @@
+<section class="players-root">
+  <!-- Navigation -->
+  <div class="nav-back">
+    <a routerLink="/leagues" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to Leagues</span>
+    </a>
+  </div>
+
+  <!-- Team Header -->
+  <div class="team-header">
+    <div class="team-logo">
+      <img
+        [src]="team.crest"
+        [alt]="team.name + ' crest'"
+        *ngIf="team?.crest; else noTeamLogo"
+      />
+      <ng-template #noTeamLogo>
+        <div class="logo-placeholder"></div>
+      </ng-template>
+    </div>
+    <div class="team-info">
+      <h1 class="team-title">{{ team?.name || 'Loading...' }}</h1>
+      <div class="country-tag">{{ team?.area?.name || 'Team' }}</div>
+    </div>
+  </div>
+
+  <!-- Players Section -->
+  <div class="players-section-title">Squad Players</div>
+
+  <div *ngIf="loading" class="status-msg">Loading players...</div>
+  <div *ngIf="error" class="status-msg error">{{ error }}</div>
+
+  <div *ngIf="!players.length && !loading && !error" class="status-msg">
+    No players found for this team.
+  </div>
+
+  <div class="players-grid" *ngIf="players.length">
+    <div class="player-card" *ngFor="let player of players">
+      <div class="player-avatar">
+        <div class="avatar-placeholder">
+          {{ player.name?.charAt(0) || '?' }}
+        </div>
+      </div>
+      <div class="player-details">
+        <h3 class="player-name">{{ player.name }}</h3>
+        <div class="player-info">
+          <span class="info-label">Position</span>
+          <span class="info-value position-badge position-{{ getPositionClass(player.position) }}">
+            {{ (player.position || 'N/A') | uppercase }}
+          </span>
+        </div>
+        <div class="player-info">
+          <span class="info-label">Nationality</span>
+          <span class="info-value">{{ player.nationality || 'N/A' }}</span>
+        </div>
+        <!--dateOfBirth-->
+        <div class="player-info" *ngIf="player.dateOfBirth">
+          <span class="info-label">Date of Birth</span>
+          <span class="info-value">{{ player.dateOfBirth }}</span>
+        </div>
+        <div class="player-info" *ngIf="player.dateOfBirth">
+          <span class="info-label">Age</span>
+          <span class="info-value">{{ calculateAge(player.dateOfBirth) }} years</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

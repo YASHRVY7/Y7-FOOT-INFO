@@ -1,0 +1,134 @@
+<section class="leagues-root">
+  <div class="hero-section">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span>⚽LEAGUE DETAILS</span>
+        </div>
+        <h1 class="hero-title">
+          <div class="logo-container">
+            <img src="/assets/FOTMOB-LOGO.png" alt="Y7 FootInfo Logo" class="hero-logo">
+            <div class="decorative-lines">
+              <div class="line line-1"></div>
+              <div class="line line-2"></div>
+              <div class="line line-3"></div>
+            </div>
+          </div>
+          <span class="hero-subtitle">Your Ultimate Football Companion</span>
+        </h1>
+        <p class="hero-description">Get real-time updates, stats, and insights from top football leagues around the world</p>
+        
+        <div class="hero-search">
+          <div class="search-container">
+            <div class="search-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              placeholder="Search leagues..."
+              aria-label="Search football content"
+              class="search-input"
+            />
+            <button class="search-button">
+              <span>Search</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="search-tags">
+            <span>Trending:</span>
+            <a [routerLink]="['/standings', 'PL']" class="featured-link">Premier League</a>
+            <a [routerLink]="['/standings', 'PD']" class="featured-link">La Liga</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-featured">
+        <div class="featured-card">
+          <div class="card-pattern"></div>
+          <div class="featured-content">
+            <div class="league-badge">
+              <img src="/assets/premierleague.png" alt="Premier League" />
+            </div>
+            <span class="featured-tag">FEATURED LEAGUE</span>
+            <h3 class="featured-title">Premier League 2024/25</h3>
+            <p class="featured-desc">Follow all the action from England's top flight</p>
+            <div class="featured-stats">
+              <div class="stat">
+                <span class="stat-value">20</span>
+                <span class="stat-label">Teams</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">380</span>
+                <span class="stat-label">Matches</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">1</span>
+                <span class="stat-label">Champion</span>
+              </div>
+            </div>
+            <a [routerLink]="['/standings', 'PL']" class="featured-link">
+              View Standings
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="leagues-section-title">European Football Leagues</div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading leagues...</div>
+  </div>
+  <div *ngIf="error" class="status-msg error">{{ error }}</div>
+
+  <div class="leagues-cards" *ngIf="filteredLeagues.length">
+    <div class="league-card" *ngFor="let league of filteredLeagues">
+      <div class="league-card-header">
+        <div class="league-icon">
+          <img
+            [src]="league.emblem"
+            [alt]="league.name + ' emblem'"
+            *ngIf="league.emblem; else noEmblem"
+          />
+          <ng-template #noEmblem>
+            <div class="no-emblem"></div>
+          </ng-template>
+        </div>
+        <div class="league-info">
+          <div class="league-name">{{ league.name }}</div>
+          <div class="league-country" [attr.data-country]="league.area?.name">
+            {{ league.area?.name }}
+          </div>
+        </div>
+      </div>
+      <div class="league-actions">
+        <a [routerLink]="['/teams', league.code]" class="action-btn teams-btn">
+          <span>View Teams</span>
+          <i class="arrow-icon">→</i>
+        </a>
+        <a [routerLink]="['/standings', league.code]" class="action-btn standings-btn">
+          <span>View Standings</span>
+          <i class="arrow-icon">→</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!filteredLeagues.length && !loading && !error" class="status-msg">
+    No leagues found.
+  </div>
+</section>

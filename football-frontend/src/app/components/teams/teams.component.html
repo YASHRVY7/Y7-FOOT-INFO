@@ -1,0 +1,95 @@
+<section class="teams-root">
+  <!-- Navigation -->
+  <div class="nav-back">
+    <a routerLink="/leagues" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to Leagues</span>
+    </a>
+  </div>
+
+  <!-- League Header -->
+  <div class="league-header">
+    <div class="league-logo">
+      <img
+        [src]="league.emblem"
+        [alt]="league.name + ' crest'"
+        *ngIf="league.emblem; else noLeagueLogo"
+      />
+      <ng-template #noLeagueLogo>
+        <div class="logo-placeholder"></div>
+      </ng-template>
+    </div>
+    <div class="league-info">
+      <h1 class="league-title">{{ league.name }}</h1>
+      <div class="country-tag">{{ league.area?.name }}</div>
+    </div>
+  </div>
+
+  <!-- Teams Section -->
+  <div class="teams-section-title">Teams</div>
+
+  <div *ngIf="loading" class="status-msg">Loading...</div>
+  <div *ngIf="error" class="status-msg error">{{ error }}</div>
+
+  <div class="teams-grid" *ngIf="teams.length">
+    <div class="team-card" *ngFor="let team of teams">
+      <div class="team-logo">
+        <img
+          [src]="team.crest"
+          [alt]="team.name + ' logo'"
+          *ngIf="team.crest; else noLogo"
+        />
+        <ng-template #noLogo>
+          <div class="logo-placeholder"></div>
+        </ng-template>
+      </div>
+      <div class="team-details">
+        <h3 class="team-name">{{ team.name }}</h3>
+        <div class="team-info">
+          <div class="info-item" *ngIf="team.venue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="info-label">Venue</span>
+            <span class="info-value">{{ team.venue }}</span>
+          </div>
+          <div class="info-item" *ngIf="team.founded">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span class="info-label">Founded</span>
+            <span class="info-value">{{ team.founded }}</span>
+          </div>
+          <div class="info-item" *ngIf="team.coach?.name">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="info-label">Coach</span>
+            <span class="info-value">{{ team.coach.name }}</span>
+          </div>
+        </div>
+        <div class="team-actions">
+          <a [routerLink]="['/players', team.id]" [state]="{ team: team }" class="view-players-btn">
+            <span>View Players</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!teams.length && !loading && !error" class="status-msg">
+    No teams found for this league.
+  </div>
+</section>

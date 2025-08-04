@@ -1,0 +1,109 @@
+<div class="standings-container">
+  <!-- Navigation -->
+  <div class="nav-back">
+    <a routerLink="/leagues" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to Leagues</span>
+    </a>
+  </div>
+
+  <!-- League Header -->
+  <div class="league-header" *ngIf="league">
+    <div class="league-logo">
+      <img [src]="league.emblem" [alt]="league.name + ' logo'" *ngIf="league.emblem; else noLeagueLogo">
+      <ng-template #noLeagueLogo>
+        <div class="logo-placeholder"></div>
+      </ng-template>
+    </div>
+    <div class="league-info">
+      <h1 class="league-title">{{ league.name || 'League Standings' }}</h1>
+      <div class="season-tag" *ngIf="standings[0]?.season">Season {{ standings[0].season.displayText }}</div>
+    </div>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="loading" class="status-msg">
+    <div class="spinner"></div>
+    <span>Loading standings...</span>
+  </div>
+
+  <div *ngIf="error" class="status-msg error">
+    <svg class="icon" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+    </svg>
+    <span>{{ error }}</span>
+  </div>
+
+  <!-- Standings Content -->
+  <div *ngIf="standings.length" class="standings-content">
+    <div *ngFor="let standingGroup of standings" class="standings-group">
+      <h2 class="group-title">
+        <span class="group-name">{{ standingGroup.group || 'Overall Standings' }}</span>
+      </h2>
+      
+      <div class="standings-table-container">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th class="position-col">#</th>
+              <th class="team-col">Team</th>
+              <th class="played-col">P</th>
+              <th class="won-col">W</th>
+              <th class="drawn-col">D</th>
+              <th class="lost-col">L</th>
+              <th class="goals-col">GF</th>
+              <th class="goals-col">GA</th>
+              <th class="gd-col">GD</th>
+              <th class="points-col">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let team of standingGroup.table" 
+                [class.qualified]="team.position <= 4"
+                [class.europa]="team.position > 4 && team.position <= 6"
+                [class.relegation]="team.position > standingGroup.table.length - 3"
+                [class.champion]="team.position === 1">
+              <td class="position-cell">
+                <span class="position" [class.top-four]="team.position <= 4">
+                  {{ team.position }}
+                </span>
+              </td>
+              <td class="team-cell">
+                <div class="team-info">
+                  <div class="team-crest">
+                    <img [src]="team.team.crest" 
+                         [alt]="team.team.name + ' crest'" 
+                         onerror="this.src='assets/default-crest.png'">
+                  </div>
+                  <span class="team-name">{{ team.team.shortName || team.team.name }}</span>
+                </div>
+              </td>
+              <td>{{ team.playedGames }}</td>
+              <td class="won">{{ team.won }}</td>
+              <td class="drawn">{{ team.draw }}</td>
+              <td class="lost">{{ team.lost }}</td>
+              <td>{{ team.goalsFor }}</td>
+              <td>{{ team.goalsAgainst }}</td>
+              <td [class.positive]="team.goalDifference > 0" 
+                  [class.negative]="team.goalDifference < 0">
+                {{ team.goalDifference > 0 ? '+' : '' }}{{ team.goalDifference }}
+              </td>
+              <td class="points">{{ team.points }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Standings Message -->
+  <div *ngIf="!standings.length && !loading && !error" class="no-standings">
+    <svg class="icon" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+    </svg>
+    <p>No standings available for this competition.</p>
+  </div>
+</div>
