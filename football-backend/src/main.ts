@@ -9,7 +9,10 @@ async function bootstrap() {
   // Enable CORS for Angular frontend
   app.enableCors({ origin: 'http://localhost:4200' });
   app.useGlobalFilters(new AllExceptionFilter());
-  await app.listen(process.env.PORT ?? 3000);
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  
+  const port = parseInt(process.env.PORT || '') || 3000;
+  await app.listen(port, '0.0.0.0');
+  
+  console.log(`Application is running on port ${port}`);
 }
 bootstrap();
