@@ -6,29 +6,21 @@ import { AllExceptionFilter } from './filters/all-exceptions.filter';
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
-  
-  // Set Content Security Policy headers first
-  app.use((req, res, next) => {
-    res.header('Content-Security-Policy', "default-src 'self'; connect-src 'self' https://y7-foot-info.onrender.com;");
-    next();
-  });
-
-  // Then enable CORS
+  // Enable CORS for Angular frontend
   app.enableCors({
     origin: [
       'http://localhost:4200',
-      'https://y7-foot-info.onrender.com'
+      'https://whimsical-kangaroo-b5d5d3.netlify.app',
+      'https://689062671d9c620496a9a70e--whimsical-kangaroo-b5d5d3.netlify.app'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-    allowedHeaders: 'Content-Type, Accept, Authorization'
   });
-
   app.useGlobalFilters(new AllExceptionFilter());
-  
+
   const port = parseInt(process.env.PORT || '') || 3000;
   await app.listen(port, '0.0.0.0');
-  
+
   console.log(`Application is running on port ${port}`);
 }
 bootstrap();
