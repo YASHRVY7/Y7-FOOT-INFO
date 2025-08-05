@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { AllExceptionFilter } from './filters/all-exceptions.filter';
+import * as helmet from 'helmet';
 
 async function bootstrap() {
   dotenv.config();
@@ -14,23 +15,37 @@ async function bootstrap() {
       'https://y7-foot-info.onrender.com',
       'https://y7-foot-info.onrender.com/leagues'
     ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    allowedHeaders: 'Content-Type, Accept, Authorization'
+    allowedHeaders: 'Content-Type, Accept, Authorization, X-Requested-With',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   });
 
-  // Set Content Security Policy headers
-  app.use((req, res, next) => {
-    res.setHeader(
-      'Content-Security-Policy',
-      "default-src 'self'; " +
-      "connect-src 'self' https://y7-foot-info.onrender.com; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-      "style-src 'self' 'unsafe-inline'; " +
-      "img-src 'self' data: https:;"
-    );
-    next();
-  });
+  // Apply helmet with custom CSP configuration
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          connectSrc: [
+            "'self'",
+            'https://y7-foot-info.onrender.com',
+            'https://y7-foot-info.onrender.com/leagues',
+            'https://api.football-data.org',
+          ],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'"],
+          imgSrc: ["'self'", 'data:', 'https:'],
+          fontSrc: ["'self'"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+        },
+      },
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: { policy: "cross-origin" },
+    })
+  );
 
   app.useGlobalFilters(new AllExceptionFilter());
   
