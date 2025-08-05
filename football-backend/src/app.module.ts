@@ -11,9 +11,8 @@ import { CacheModule } from '@nestjs/cache-manager';
 @Module({
   imports: [ExternalApiModule, LeaguesModule, TeamsModule, PlayersModule, StandingsModule,
     CacheModule.register({
-      ttl: 60*60,//1 hour
-      max: 100, //max 100 items
-      isGlobal:true
+      ttl: 600,//10 minutes
+      max: 100 //max 100 items
     })],
   controllers: [AppController],
   providers: [AppService],

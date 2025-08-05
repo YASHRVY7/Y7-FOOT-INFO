@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiBaseUrl: 'http://localhost:3000' // Using local development server for now
+    apiBaseUrl: 'https://y7-foot-info.onrender.com' // Using local development server for now
   };

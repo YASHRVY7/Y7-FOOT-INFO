@@ -6,13 +6,8 @@ import { AllExceptionFilter } from './filters/all-exceptions.filter';
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
-  // Enable CORS with specific settings
-  app.enableCors({
-    origin: 'https://whimsical-kangaroo-b5d5d3.netlify.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
-    credentials: true
-  });
+  // Enable CORS for Angular frontend
+  app.enableCors({ origin: 'http://localhost:4200' });
   app.useGlobalFilters(new AllExceptionFilter());
   
   const port = parseInt(process.env.PORT || '') || 3000;
