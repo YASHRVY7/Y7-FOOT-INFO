@@ -2,13 +2,32 @@
 
 
   
-  <p align="center">
+<p align="center">
   <img src="https://angular.io/assets/images/logos/angular/angular.svg" height="60" alt="Angular" />
   <img src="https://nestjs.com/img/logo-small.svg" height="60" alt="NestJS" />
   <img src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png" height="50" alt="Netlify" />
   <img src="https://render.com/images/render-mark-gradient.svg" height="50" alt="Render" />
 </p>
-  
+
+<p align="center">
+  <strong>A full-stack European football league explorer</strong><br/>
+  Built with Angular frontend and NestJS backend API
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular" />
+  <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Netlify" />
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square" alt="Status" />
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/API-Football--Data-orange?style=flat-square" alt="API" />
+</p>
   
 
 
