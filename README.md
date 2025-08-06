@@ -2,7 +2,22 @@
 
 
   
-<p align="center">
+  
+  
+  
+
+
+
+  A full-stack European football league explorer
+  Built with Angular frontend and NestJS backend API
+
+
+
+  
+  
+  
+  
+  <p align="center">
   <img src="https://angular.io/assets/images/logos/angular/angular.svg" height="60" alt="Angular" />
   <img src="https://nestjs.com/img/logo-small.svg" height="60" alt="NestJS" />
   <img src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png" height="50" alt="Netlify" />
@@ -28,12 +43,13 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="License" />
   <img src="https://img.shields.io/badge/API-Football--Data-orange?style=flat-square" alt="API" />
 </p>
+
+
+
   
-
-
-
-  A full-stack European football league explorer
-  Built with Angular frontend and NestJS backend API
+  
+  
+  
 
 
 
@@ -48,7 +64,6 @@
 ## 🌐 Live Demo
 
 - **🎯 Frontend:** [https://whimsical-kangaroo-b5d5d3.netlify.app](https://whimsical-kangaroo-b5d5d3.netlify.app)
-- **🔌 API:** [https://y7-foot-info.onrender.com](https://y7-foot-info.onrender.com)
 
 ## ✨ Features
 
@@ -86,7 +101,13 @@ football-info-platform/
 
 ## 🔧 Backend - NestJS API
 
- **Powerful TypeScript backend serving football data**
+
+  
+  
+  
+
+
+**Powerful TypeScript backend serving football data**
 
 ### 🛠️ Tech Stack
 - **Framework:** NestJS
@@ -149,7 +170,13 @@ NODE_ENV=development
 
 ## 🎨 Frontend - Angular App
 
- **Modern, responsive football league explorer**
+
+  
+  
+  
+
+
+**Modern, responsive football league explorer**
 
 ### 🛠️ Tech Stack
 - **Framework:** Angular 18+
@@ -210,6 +237,10 @@ ng serve --open
 
 ### 🔴 Backend Deployment (Render)
 
+
+  
+
+
 1. **Create Render Account** at [render.com](https://render.com)
 
 2. **Connect Repository** and select `football-backend`
@@ -229,6 +260,10 @@ ng serve --open
 5. **Deploy** - Render will auto-deploy on git push
 
 ### 🟢 Frontend Deployment (Netlify)
+
+
+  
+
 
 1. **Build Production Version:**
    ```
@@ -266,6 +301,10 @@ ng serve --open
 
 ## 🔑 Getting Football Data API Key
 
+
+  
+
+
 1. Visit [Football-Data.org](https://www.football-data.org/client/register)
 2. Create a **free account**
 3. Get your API token from the dashboard
@@ -283,9 +322,35 @@ ng serve --open
 
 ---
 
+## 🔄 Future Enhancement
+
+### 📦 Cache Management (Next Priority)
+
+**Why:** API has limits (10 requests/minute) - need caching for production use.
+
+**Plan:**
+- 🗄️ Add Redis cache to store API responses
+- ⏱️ Cache data for different times:
+  - Leagues: 24 hours
+  - Teams: 6 hours  
+  - Standings: 1 hour
+- ⚡ Faster response times
+- 📊 Stay within API limits
+- 🔄 Auto-refresh old data
+
+**Result:** App works better with many users, fewer API errors.
+
+---
+
 ## 🛠️ Development
 
 ### 🔧 Prerequisites
+
+
+  
+  
+  
+
 
 - **Node.js** 18+ and npm
 - **Angular CLI** 18+
@@ -334,6 +399,10 @@ ng test             # Run unit tests
 
 ## 🤝 Contributing
 
+
+  
+
+
 1. **Fork** the repository
 2. **Create** your feature branch (`git checkout -b feature/amazing-feature`)
 3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
@@ -343,6 +412,10 @@ ng test             # Run unit tests
 ---
 
 ## 📄 License
+
+
+  
+
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
@@ -355,6 +428,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **💖 Built with:** Angular framework and NestJS ecosystem
 
 ---
-
-
-
