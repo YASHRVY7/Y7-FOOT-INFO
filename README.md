@@ -2,7 +2,12 @@
 
 
   
-  
+  <p align="center">
+  <img src="https://angular.io/assets/images/logos/angular/angular.svg" height="60" alt="Angular" />
+  <img src="https://nestjs.com/img/logo-small.svg" height="60" alt="NestJS" />
+  <img src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png" height="50" alt="Netlify" />
+  <img src="https://render.com/images/render-mark-gradient.svg" height="50" alt="Render" />
+</p>
   
   
 
